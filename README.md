@@ -2,11 +2,7 @@
 
 This repository contains a Dockerfile for building ROS and Sawyer packages on top of pure Ubuntu 16.04 docker image (with openbox window manager), which runs in a headless mode, and is viewed through the vnc.
 
-
-## Build manually
-
-
-## Using perr-built image from [Docker hub]([https://hub.docker.com/r/mksmsrkn/pure_ubuntu_ros_sawyer/]).
+## Using pre-built image from [Docker hub]([https://hub.docker.com/r/mksmsrkn/pure_ubuntu_ros_sawyer/]).
 You can download prebuilt image from the docker hub by running:
 ```# docker pull mksmsrkn/pure_ubuntu_ros_sawyer```
 
