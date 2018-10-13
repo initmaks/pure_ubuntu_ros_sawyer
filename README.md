@@ -68,4 +68,6 @@ To run Gazebo simulator example simply run:
 roslaunch sawyer_sim_examples sawyer_pick_and_place_demo.launch
 ```
 
-It may take a little while to open it, but then should be able to see the robot moving a red box around the table.
+It may take a little while to open it, but then should be able to see the robot moving a red box around the table, like following:
+
+![](misc/robot.png)
