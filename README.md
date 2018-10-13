@@ -4,7 +4,10 @@ This repository contains a Dockerfile for building ROS and Sawyer packages on to
 
 ## Using pre-built image from [Docker hub]([https://hub.docker.com/r/mksmsrkn/pure_ubuntu_ros_sawyer/]).
 You can download prebuilt image from the docker hub by running:
-```# docker pull mksmsrkn/pure_ubuntu_ros_sawyer```
+
+```bash 
+docker pull mksmsrkn/pure_ubuntu_ros_sawyer
+```
 
 
 ## Building manually
@@ -21,7 +24,7 @@ docker build -t pure_ubuntu_ros_sawyer .
 Building was succesfully tested on Mac OS X Mojave Version 10.14 and Ubuntu 18.04 Docker hosts.
 
 
-## Running to image
+## Running the image
 
 To run the container enter:
 
@@ -35,7 +38,7 @@ OR if you were build it yourself:
 docker run -d -p 5900:5900 pure_ubuntu_ros_sawyer
 ```
 
-## Connect
+## Connecting
 
 You can use any VNC viewer of your choice to connect to the image.
 
