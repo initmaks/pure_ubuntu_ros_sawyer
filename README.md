@@ -57,9 +57,10 @@ You can open Terminal emulator (which is a Terminator by default).
 To run Gazebo simulator example simply run: 
 
 ```bash
-./intera_setup.sh $IP_OF_THE_SAWYER_ROBOT # TODO
+# Replace $IP_OF_THE_SAWYER_ROBOT with the real robot IP in case you have a physical robot, to preconfigure the intera.sh 
+./intera_setup.sh $IP_OF_THE_SAWYER_ROBOT # if you don't have a robot, just run ./intera_setup.sh
 cd ros_ws
-./intera.sh
+./intera.sh sim
 roslaunch sawyer_sim_examples sawyer_pick_and_place_demo.launch
 ```
 
