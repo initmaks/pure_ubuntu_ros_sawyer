@@ -53,17 +53,12 @@ After connecting you will see a black screen, you can make a right click to see 
 
 You can open Terminal emulator (which is a Terminator by default).
 
-You will need to edit intera.sh file first, which is located in `ros_ws/intera_sdk/` folder.
-Set `robot_hostname` to your container id, you can learn it by running `hostname` in terminator.
-Set `your_ip` to dockers ip, you can look it up calling `ifconfig`.
-Set `ros_version` to `kinetic`.
-Done!
-
-Now copy/move `intera.sh` to `~/ros_ws/`.
 
 To run Gazebo simulator example simply run: 
 
 ```bash
+./intera_setup.sh $IP_OF_THE_SAWYER_ROBOT # TODO
+cd ros_ws
 ./intera.sh
 roslaunch sawyer_sim_examples sawyer_pick_and_place_demo.launch
 ```
