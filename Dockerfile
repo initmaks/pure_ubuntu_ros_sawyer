@@ -34,7 +34,7 @@ RUN apt-get install -y gazebo7 ros-kinetic-qt-build ros-kinetic-gazebo-ros-contr
 ##### END : GAZEBO SETUP #####
 
 ##### SAWYER GAZEBO SETUP #####
-RUN cd ~/ros_ws/src  && \
+RUN cd ~/ros_ws/src && \
         git clone https://github.com/RethinkRobotics/sawyer_simulator.git && \
         #cd sawyer_simulator && git checkout v5.2.0 && \
         cd ~/ros_ws/src &&  \
@@ -42,6 +42,14 @@ RUN cd ~/ros_ws/src  && \
         wstool update && \
         /bin/bash -c "cd ~/ros_ws && source /opt/ros/kinetic/setup.bash && catkin_make"
 ##### END : SAWYER GAZEBO SETUP #####
+
+##### MOVEIT SETUP #####
+RUN apt-get install -y ros-kinetic-moveit && \
+    cd ~/ros_ws/src  && \
+    wstool merge https://raw.githubusercontent.com/RethinkRobotics/sawyer_moveit/master/sawyer_moveit.rosinstall  && \
+    wstool update && \
+    /bin/bash -c "cd ~/ros_ws && source /opt/ros/kinetic/setup.bash && catkin_make"
+##### END : MOVEIT SETUP #####
 
 ##### SUBLIME TEXT + TERMINATOR #####
 RUN wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add - &&\
@@ -60,8 +68,11 @@ RUN apt-get install -y x11vnc xvfb openbox obconf
 # Finally, install wmctrl needed for bootstrap script
 RUN apt-get install -y wmctrl 
 
-# Copy bootstrap script and make sure it runs
+# Copy scripts
 COPY bootstrap.sh /
+COPY intera_setup.sh /root/
 ##### END : VNC + OPENBOX #####
 
 CMD '/bootstrap.sh'
+
+RUN mv ~/ros_ws/src/intera_sdk/intera.sh ~/ros_ws
