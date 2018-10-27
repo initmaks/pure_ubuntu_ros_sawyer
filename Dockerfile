@@ -11,7 +11,6 @@ apt-get -y install python-rosinstall python-rosinstall-generator python-wstool b
 
 RUN apt-get install -y git-core python-argparse python-wstool python-vcstools python-rosdep ros-kinetic-control-msgs ros-kinetic-joystick-drivers ros-kinetic-xacro ros-kinetic-tf2-ros ros-kinetic-rviz ros-kinetic-cv-bridge ros-kinetic-actionlib ros-kinetic-actionlib-msgs ros-kinetic-dynamic-reconfigure ros-kinetic-trajectory-msgs ros-kinetic-rospy-message-converter
 
-
 RUN echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
 
 ##### END : ROS Kinetic layer #####
@@ -30,17 +29,21 @@ wstool merge sawyer_robot/sawyer_robot.rosinstall  && wstool update && \
 
 ##### GAZEBO SETUP #####
 RUN apt-get update --fix-missing
-RUN apt-get install -y gazebo7 ros-kinetic-qt-build ros-kinetic-gazebo-ros-control ros-kinetic-gazebo-ros-pkgs ros-kinetic-ros-control ros-kinetic-realtime-tools ros-kinetic-ros-controllers ros-kinetic-xacro python-wstool ros-kinetic-tf-conversions ros-kinetic-kdl-parser ros-kinetic-sns-ik-lib ros-kinetic-control-toolbox
+RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list' &&\
+cat /etc/apt/sources.list.d/gazebo-stable.list &&\
+wget http://packages.osrfoundation.org/gazebo.key -O - | apt-key add - &&\
+apt-get update &&\
+ apt-get install -y gazebo7 libgazebo7-dev libignition-math2-dev ros-kinetic-qt-build ros-kinetic-gazebo-ros-control ros-kinetic-gazebo-ros-pkgs ros-kinetic-ros-control ros-kinetic-realtime-tools ros-kinetic-ros-controllers ros-kinetic-xacro python-wstool ros-kinetic-tf-conversions ros-kinetic-kdl-parser ros-kinetic-sns-ik-lib ros-kinetic-control-toolbox
 ##### END : GAZEBO SETUP #####
 
 ##### SAWYER GAZEBO SETUP #####
 RUN cd ~/ros_ws/src && \
-        git clone https://github.com/RethinkRobotics/sawyer_simulator.git && \
-        #cd sawyer_simulator && git checkout v5.2.0 && \
-        cd ~/ros_ws/src &&  \
-        wstool merge sawyer_simulator/sawyer_simulator.rosinstall && \
-        wstool update && \
-        /bin/bash -c "cd ~/ros_ws && source /opt/ros/kinetic/setup.bash && catkin_make"
+    git clone https://github.com/RethinkRobotics/sawyer_simulator.git && \
+    #cd sawyer_simulator && git checkout v5.2.0 && \
+    cd ~/ros_ws/src &&  \
+    wstool merge sawyer_simulator/sawyer_simulator.rosinstall && \
+    wstool update && \
+    /bin/bash -c "cd ~/ros_ws && source /opt/ros/kinetic/setup.bash && catkin_make"
 ##### END : SAWYER GAZEBO SETUP #####
 
 ##### MOVEIT SETUP #####
