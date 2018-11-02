@@ -24,7 +24,7 @@ git clone https://github.com/RethinkRobotics/sawyer_robot.git && \
 wstool merge sawyer_robot/sawyer_robot.rosinstall  && wstool update && \
 # cd intera_common && git checkout v5.2.0 && cd .. && \
 # cd intera_sdk && git checkout v5.2.0 && cd .. && \
-/bin/bash -c "cd ~/ros_ws && source /opt/ros/kinetic/setup.bash && catkin_make"
+/bin/bash -c "cd ~/ros_ws && source /opt/ros/kinetic/setup.bash"
 ##### END : SAWYER INIT SETUP #####
 
 ##### GAZEBO SETUP #####
@@ -33,7 +33,7 @@ RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb
 cat /etc/apt/sources.list.d/gazebo-stable.list &&\
 wget http://packages.osrfoundation.org/gazebo.key -O - | apt-key add - &&\
 apt-get update &&\
- apt-get install -y gazebo7 libgazebo7-dev libignition-math2-dev ros-kinetic-qt-build ros-kinetic-gazebo-ros-control ros-kinetic-gazebo-ros-pkgs ros-kinetic-ros-control ros-kinetic-realtime-tools ros-kinetic-ros-controllers ros-kinetic-xacro python-wstool ros-kinetic-tf-conversions ros-kinetic-kdl-parser ros-kinetic-sns-ik-lib ros-kinetic-control-toolbox
+ apt-get install -y gazebo7 libgazebo7-dev libignition-math2-dev ros-kinetic-qt-build ros-kinetic-gazebo-ros-control ros-kinetic-gazebo-ros-pkgs ros-kinetic-ros-control ros-kinetic-realtime-tools ros-kinetic-ros-controllers ros-kinetic-xacro python-wstool python-catkin-tools ros-kinetic-tf-conversions ros-kinetic-kdl-parser ros-kinetic-sns-ik-lib ros-kinetic-control-toolbox 
 ##### END : GAZEBO SETUP #####
 
 ##### SAWYER GAZEBO SETUP #####
@@ -43,7 +43,7 @@ RUN cd ~/ros_ws/src && \
     cd ~/ros_ws/src &&  \
     wstool merge sawyer_simulator/sawyer_simulator.rosinstall && \
     wstool update && \
-    /bin/bash -c "cd ~/ros_ws && source /opt/ros/kinetic/setup.bash && catkin_make"
+    /bin/bash -c "cd ~/ros_ws && source /opt/ros/kinetic/setup.bash"
 ##### END : SAWYER GAZEBO SETUP #####
 
 ##### MOVEIT SETUP #####
@@ -51,8 +51,17 @@ RUN apt-get install -y ros-kinetic-moveit && \
     cd ~/ros_ws/src  && \
     wstool merge https://raw.githubusercontent.com/RethinkRobotics/sawyer_moveit/master/sawyer_moveit.rosinstall  && \
     wstool update && \
-    /bin/bash -c "cd ~/ros_ws && source /opt/ros/kinetic/setup.bash && catkin_make"
+    /bin/bash -c "cd ~/ros_ws && source /opt/ros/kinetic/setup.bash"
 ##### END : MOVEIT SETUP #####
+
+##### IntelRealsense Camera Gazebo Setup ##########
+RUN cd ~/ros_ws/src &&\
+    git clone https://github.com/SyrianSpock/realsense_gazebo_plugin &&\
+    cd realsense_gazebo_plugin &&\
+    git checkout kinetic-devel &&\
+    cd ~/ros_ws/ &&\
+    /bin/bash -c "cd ~/ros_ws && source /opt/ros/kinetic/setup.bash && catkin build"
+##### END:IntelRealsense Camera Gazebo Setup ##########
 
 ##### SUBLIME TEXT + TERMINATOR #####
 RUN wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add - &&\
