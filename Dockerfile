@@ -63,6 +63,18 @@ RUN cd ~/ros_ws/src &&\
     /bin/bash -c "cd ~/ros_ws && source /opt/ros/kinetic/setup.bash && catkin build"
 ##### END:IntelRealsense Camera Gazebo Setup ##########
 
+##### IntelRealsense Camera Gazebo Setup ##########
+# install librealsense 2
+RUN apt-get install -y software-properties-common usbutils # required for add-apt-repository
+RUN apt-key adv --keyserver keys.gnupg.net --recv-key C8B3A55A6F3EFCDE || apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key C8B3A55A6F3EFCDE && \
+        add-apt-repository "deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo xenial main" -u && \
+        apt-get update && \
+        apt-get install -y librealsense2-utils librealsense2-dev librealsense2-dbg #librealsense2-dkms
+RUN cd ~/ && wget https://github.com/intel-ros/realsense/archive/2.1.0.zip &&\
+	unzip 2.1.0.zip && mv realsense-2.1.0/ ~/ros_ws/src/ && rm 2.1.0.zip &&\
+	cd ~/ros_ws/ && catkin build
+##### END:IntelRealsense Camera Gazebo Setup ##########
+
 ##### SUBLIME TEXT + TERMINATOR #####
 RUN wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add - &&\
     apt-get install apt-transport-https &&\
